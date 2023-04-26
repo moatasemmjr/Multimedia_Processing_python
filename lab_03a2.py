@@ -6,10 +6,7 @@ import matplotlib.pyplot as plt
 from skimage.io import imread, imshow, imsave
 from PIL import Image
 import cv2
-# محاضرة الطلاب
-#  التغير ع كل بت عندي 
-# r  احداثيات الصورة قبل التغير 
-# s احداثيات الصورة بعد التغير
+
 def stretch(img, r1, s1, r2, s2):
     img_copy = img.copy()
     for i in range(len(img)):
@@ -29,8 +26,6 @@ def main():
     # img = cv2.imread(r"labs\labs\imgs\einstein_orig.tif", cv2.IMREAD_GRAYSCALE)
     img = cv2.imread(r"labs\labs\imgs\Capture.PNG" , cv2.IMREAD_GRAYSCALE )
     height, width = img.shape[:2]
-# ب استخدام
-# عنا log و  power و  strtech
 
     # log
     # s = c*log(1+r)
@@ -39,16 +34,15 @@ def main():
     M = np.max(img)
     c = 255/np.log10(1+M)
     img_log = np.uint8(c * np.log10(1+img))
-    # log inverse # العملية العكسية 
+    # log inverse 
     # r = exp(s\c)-1
     # img2 = np.exp(img_log/c)-1
 
     # power
     # s = c*r^g
-    # تغميق الصورة ب ازو قيمة الجاما و العكس ف التفتيح 
     c = 1
-    g = 2 # التغير ف الجاما افضل من ما اغير ف السي
-    img = np.float32(img/255.0)  #  الصورة لازم تكون من 0 ل  1 
+    g = 2 # 
+    img = np.float32(img/255.0)  
     img_power = c*img**g
     img_power = np.uint8(img_power*255)
 
@@ -57,7 +51,7 @@ def main():
     img_stretch = stretch(img, 70, 40, 140, 200)
 
     plt.subplot(1,2,1)
-    plt.imshow(img, cmap='gray')  #  gray عشان الصورة يلي عندي تظهر ع شكل 
+    plt.imshow(img, cmap='gray') 
     plt.axis("off")
     plt.subplot(1,2,2)
     plt.imshow(img_stretch, cmap='gray')
